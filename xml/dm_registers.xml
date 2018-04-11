@@ -125,7 +125,7 @@
         all ones to \Fhartsel (assuming the maximum size) and reading back the
         value to see which bits were actually set.
 
-        <!-- Fields that apply to a specific hart. -->
+        <!-- Fields that apply to all selected hart(s) -->
         <field name="haltreq" bits="31" access="W" reset="-">
             Writes the halt request bit for all currently selected harts.
             When set to 1, each selected hart will halt if it is not currently
@@ -163,8 +163,20 @@
 
             Writes apply to the new value of \Fhartsel and \Fhasel.
         </field>
-        <field name="0" bits="27" reset="0" access="R" />
-        <field name="hasel" bits="26" access="R/W" reset = "0">
+        <field name="resethaltreq" bits="27" access="R/W" reset="0">
+            This optional field writes the halt-on-reset request bit for all
+            currently selected harts.
+            When set to 1, each selected hart will halt upon the next deassertion
+            of its reset. The halt-on-reset request bit is not automatically
+            cleared. The debugger must write 0 to this field to clear it.
+
+            If this feature is not implemented, the bit always stays 0, so
+            after writing 1 the debugger can read the register back to see if
+            the feature is supported.
+
+            Writes apply to the new value of \Fhartsel and \Fhasel.
+        </field>
+        <field name="hasel" bits="26" access="R/W" reset="0">
             Selects the  definition of currently selected harts.
 
             0: There is a single currently selected hart, that selected by \Fhartsel.
