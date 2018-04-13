@@ -167,19 +167,7 @@
 
             Writes apply to the new value of \Fhartsel and \Fhasel.
         </field>
-        <field name="resethaltreq" bits="27" access="R/W" reset="0">
-            This optional field writes the halt-on-reset request bit for all
-            currently selected harts.
-            When set to 1, each selected hart will halt upon the next deassertion
-            of its reset. The halt-on-reset request bit is not automatically
-            cleared. The debugger must write 0 to this field to clear it.
-
-            If this feature is not implemented, the bit always stays 0, so
-            after writing 1 the debugger can read the register back to see if
-            the feature is supported.
-
-            Writes apply to the new value of \Fhartsel and \Fhasel.
-        </field>
+        <field name="0" bits="27" access="R" reset="0" />
         <field name="hasel" bits="26" access="R/W" reset="0">
             Selects the  definition of currently selected harts.
 
@@ -201,8 +189,25 @@
             The high 10 bits of \Fhartsel: the DM-specific index of the hart to
             select. This hart is always part of the currently selected harts.
         </field>
+        <field name="0" bits="5:4" access="R" reset="0" />
+        <field name="setresethaltreq" bits="3" access="W" reset="0">
+            This optional field writes the halt-on-reset request bit for all
+            currently selected harts.
+            When set to 1, each selected hart will halt upon the next deassertion
+            of its reset. The halt-on-reset request bit is not automatically
+            cleared. The debugger must write to \Fclrresethaltreq to clear it.
+
+            Writes apply to the new value of \Fhartsel and \Fhasel.
+
+            If \Fhasresethaltreq is 0, this field is not implemented.
+        </field>
+        <field name="clrresethaltreq" bits="2" access="W" reset="0">
+            This optional field clears the halt-on-reset request bit for all
+            currently selected harts.
+
+            Writes apply to the new value of \Fhartsel and \Fhasel.
+        </field>
         <!-- Fields that apply to the entire DM. -->
-        <field name="0" bits="5:2" access="R" reset="0" />
         <field name="ndmreset" bits="1" access="R/W" reset="0">
             This bit controls the reset signal from the DM to the rest of the
             system. The signal should reset every part of the system, including
