@@ -143,14 +143,14 @@ less than one second, unless it is unavailable.
 (How this is implemented is not further specified. A few
 clock cycles will be a more typical latency).
 
-The debug module can implement optional halt-on-reset bits for each hart,
+The DM can implement optional halt-on-reset bits for each hart,
 which it indicates by setting \Fhasresethaltreq to 1.
-This means the debugger implements the \Fsetresethaltreq and \Fclrresethaltreq bits.
+This means the DM implements the \Fsetresethaltreq and \Fclrresethaltreq bits.
 Writing 1 to \Fsetresethaltreq sets the halt-on-reset request bit for each
 selected hart.
 When a hart's halt-on-reset request bit is set, the hart will immediately enter
 debug mode on the next deassertion of its reset. This is true regardless of
-whether or not the hart's reset is caused by the debugger's
+whether or not the hart's reset is caused by the DM's
 \Fndmreset/\Fhartreset signals.
 The hart's halt-on-reset request bit remains set
 until cleared by the debugger writing 1 to \Fclrresethaltreq
